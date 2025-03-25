@@ -1,130 +1,40 @@
+USE AdventureWorks2022
+-----EASY-----------
+
+--SQL Serverga import qilish mumkin bo‘lgan to‘rtta asosiy faylari-------------
+-- 1. CSV (Comma-Separated Values) – Matnli fayl formati bo‘lib, maydonlar vergul bilan ajratilgan bo‘ladi.
+-- 2. XLSX (Excel) – Microsoft Excel fayllari orqali ma’lumotlarni import qilish mumkin.
+-- 3. XML (Extensible Markup Language) – Tuzilgan ma’lumotlarni SQL Serverga yuklash uchun ishlatiladi.
+-- 4. JSON (JavaScript Object Notation) – Zamonaviy ilovalardan ma’lumot import qilish uchun ishlatiladi.
 
 
+CREATE TABLE Products (
+	ProductID INT PRIMARY KEY,
+	ProductName VARCHAR(50) UNIQUE,
+	Price DECIMAL(10,2)
+)
 
+INSERT INTO Products(ProductID,ProductName, Price)
+VALUES
+(1, 'PEPSI', '100000'),
+(2, 'OSH', '50000'),
+(3, 'COLA', '10000')
+------------------------------------------------------------------------------------------------------
+---NULL VA NOT NULLNI FARQI
 
-CREATE TABLE Clients(
-EmpID INT IDENTITY(1,1) PRIMARY KEY,
-[Name] VARCHAR(50),
-Salary DECIMAL(10,2),
-);
-
-CREATE TABLE Employee (
+CREATE TABLE Talabalar (
     ID INT PRIMARY KEY,
-    Name VARCHAR(50),
-    Salary FLOAT
+    Ism VARCHAR(50) NOT NULL,  -- NOT NULL: Ism bo‘sh bo‘lishi mumkin emas
+    Telefon VARCHAR(15) NULL   -- NULL: Telefon raqami kiritilmasa ham bo‘ladi
 );
 
-INSERT INTO Employee (ID, Name, Salary) VALUES (1, 'Ali', 4500.75);
-INSERT INTO Employee (ID, Name, Salary) VALUES (2, 'Kamol', 12000.99);
-
-SELECT * FROM Employee
-
-ALTER TABLE Clients
-ADD Department VARCHAR(50) NOT NULL;
-
-
-SELECT * FROM Clients;
-
-INSERT INTO Clients ([Name],Salary)
-VALUES 
-
-('Ozodbek',50000.00),
-('Timur',40000.00),
-('Xudoyor',95000.00);
-
-UPDATE Clients SET Salary = 52000.00 WHERE EmpID = 1;	
-
-DELETE FROM Clients WHERE EmpID = 2;
-
-
-TRUNCATE TABLE Clients;
-
-DROP TABLE Clients;
-
-ALTER TABLE Clients
-ALTER COLUMN NAME VARCHAR(100);
-
-TRUNCATE TABLE Clients;
-
-
-
-
---------------MEDUIM LEVEL -------------------
-
-
-DROP TABLE IF EXISTS Employees;
-
-CREATE TABLE Employees (
-    EmpID INT PRIMARY KEY, 
-    EmpName VARCHAR(100) NOT NULL,
-	Departments VARCHAR(100)
-);
-
-INSERT INTO Employees (EmpID, EmpName,Departments)
-VALUES 
-    (1, 'Ozodbek','Commerce'),
-    (2, 'Otabek','State'),
-    (3, 'Oybek','Health');
-
-SELECT * FROM Employees;
-
-TRUNCATE TABLE Employees;
-
-ALTER TABLE Employees
-DROP COLUMN Departments;
-
-CREATE TABLE Departments (
-    DeptID INT PRIMARY KEY, 
-    DeptName VARCHAR(100) NOT NULL,
-    EmpID INT,
-    FOREIGN KEY (EmpID) REFERENCES Employees(EmpID)
-);
-
-INSERT INTO Departments(DeptID, DeptName, EmpID)
+INSERT INTO Talabalar (ID, Ism, Telefon)
 VALUES
-    (1, 'Department of Commerce', 3),
-    (2, 'Department of State', 1),
-    (3, 'Department of Health', 2);
+(1, 'Ali', NULL); -- Telefon kiritilmasa ham bo‘ladi
 
-SELECT * FROM Departments;
-
-DROP TABLE Departments;
----------------------------------------------------
-
-CREATE TABLE Management(
-ManID INT PRIMARY KEY,
-ManName VARCHAR(50),
-ManSalary VARCHAR(100)
-);
-
-INSERT INTO Management(ManID, ManName, ManSalary)
+INSERT INTO Talabalar (ID, Ism, Telefon) 
 VALUES
-(1,'Ozodbek','2000'),
-(2,'Otabek','7500'),
-(3,'Otabek','500'),
-(4,'Otabek','9500'),
-(5,'Oybek','8100');
+(2, NULL, '998901234567'); -- Xatolik: Ism NULL bo‘lishi mumkin emas
 
-SELECT * FROM Management
-
-SELECT * FROM Management 
-WHERE CAST(ManSalary AS INT) > 5000;
-
-
-DROP TABLE Management
-
-
-------------------------------------------------------------------------
-CREATE TABLE Users (
-    Name VARCHAR(100),   
-    Surname NVARCHAR(100)
-);
-
-SELECT * FROM Users
-
-
--------------------------------------------------------------------------
-
-
-
+-----------------------------------------------------------------------------------------------------------------
 
